@@ -114,4 +114,25 @@ const CATALOGUE = [
   //     { name: "Category Name 1", image: driveImg("file_id") },
   //   ]
   // }
+  ,
+  {
+    name: "Cross Body Bag",
+    thumbnail: driveImg("1EZqHSw5zMV4yNTacNRF9SUllrKI-OJfH"),
+    banner: driveImg("1EZqHSw5zMV4yNTacNRF9SUllrKI-OJfH"),
+    commonPhotos: [
+      driveImg("17BEb78KQtq8OmFYMHfFMLwjBy4xlq6YH"), // COMMON PIC 1
+      driveImg("12fKNRRYiXXjVVLHRwsJFrk-5p5xGlBNC")  // COMMOM PIC 2
+    ],
+    products: [
+      { name: "Cross Body Bag 1", image: driveImg("1neU7hO3K-nSyNKwHpS2e2WwTNtmGRxSh") },
+      { name: "Cross Body Bag 2", image: driveImg("18_FqlXWn5LziE5AyacInG0LpVPglViEf") },
+      { name: "Cross Body Bag 3", image: driveImg("1-gJhKq2mza94ZWJWxGTCFoDeIpNi_R8z") },
+      { name: "Cross Body Bag 4", image: driveImg("1hmF8hxAns6b8jUS_-um6yJr9e1BMG277") },
+      { name: "Cross Body Bag 5", image: driveImg("1NsRONndGrKU8x2Nx27a1m-wS87xB2NUy") },
+      { name: "Cross Body Bag 6", image: driveImg("1JjHdYJQ40a5I6fYQMjOWRWzDC3lXegq1") },
+      { name: "Cross Body Bag 7", image: driveImg("1p3Yaq8Ml9GuDrl0YRcq5rk9VUpYR8kvm") },
+      { name: "Cross Body Bag 8", image: driveImg("1FynZqCZe0g6g22HFKRNFReBLhvTByTLC") },
+      { name: "Cross Body Bag 9", image: driveImg("1487a-u3ZQ3rWWZ9Cve6l4QjYcA3cON3q") }
+    ]
+  }
 ];
