@@ -184,6 +184,13 @@
     flex-direction:column; align-items:center; justify-content:center;
   }
   .lightbox.open{ display:flex; }
+  .lightbox-frame{
+    position:relative; width:100%; height:100%; max-width:480px;
+    margin:0 auto; display:flex; flex-direction:column;
+  }
+  @media (min-width:640px){
+    .lightbox-frame{ max-height:92vh; height:92vh; box-shadow:0 30px 80px -20px rgba(0,0,0,0.6); border-radius:16px; overflow:hidden; background:#0a090b; }
+  }
   .lightbox-topbar{
     position:absolute; top:16px; right:16px; display:flex; gap:10px; z-index:5;
   }
@@ -247,7 +254,7 @@
     </div>
 
     <div class="side">
-      <button class="back-btn" id="backBtn" onclick="showCategories()">← Back</button>
+      <button class="back-btn" id="backBtn" onclick="goBack()">← Back</button>
       <div class="menu-wrap">
         <button class="icon-btn" id="menuBtn" aria-label="Menu">
           <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="12" cy="19" r="1.6"/></svg>
@@ -259,7 +266,7 @@
     </div>
   </div>
 
-  <div class="banner">
+  <div class="banner" id="heroBanner">
     <img src="images/banner.png" alt="Mahi Art Gallery banner">
     <div class="banner-overlay">
       <div class="eyebrow">Our Collection</div>
@@ -292,27 +299,29 @@
   </main>
 
   <div class="lightbox" id="lightbox">
-    <div class="lightbox-topbar">
-      <button id="lightboxZoom" aria-label="Zoom">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
-      </button>
-      <button id="lightboxShare" aria-label="Share">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="2.4"/><circle cx="6" cy="12" r="2.4"/><circle cx="18" cy="19" r="2.4"/><line x1="8.1" y1="10.7" x2="15.9" y2="6.3"/><line x1="8.1" y1="13.3" x2="15.9" y2="17.7"/></svg>
-      </button>
-      <button id="lightboxClose" aria-label="Close">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
-      </button>
+    <div class="lightbox-frame">
+      <div class="lightbox-topbar">
+        <button id="lightboxZoom" aria-label="Zoom">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+        </button>
+        <button id="lightboxShare" aria-label="Share">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="2.4"/><circle cx="6" cy="12" r="2.4"/><circle cx="18" cy="19" r="2.4"/><line x1="8.1" y1="10.7" x2="15.9" y2="6.3"/><line x1="8.1" y1="13.3" x2="15.9" y2="17.7"/></svg>
+        </button>
+        <button id="lightboxClose" aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
+        </button>
+      </div>
+      <div class="lightbox-stage">
+        <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <img id="lightboxImg" src="" alt="">
+        <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+      <div class="lightbox-thumbs" id="lightboxThumbs"></div>
     </div>
-    <div class="lightbox-stage">
-      <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-      </button>
-      <img id="lightboxImg" src="" alt="">
-      <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-      </button>
-    </div>
-    <div class="lightbox-thumbs" id="lightboxThumbs"></div>
   </div>
 
   <script src="data.js"></script>
@@ -326,6 +335,7 @@
     const prodSub = document.getElementById('prodSub');
     const searchInput = document.getElementById('searchInput');
     const searchWrap = document.getElementById('searchWrap');
+    const heroBanner = document.getElementById('heroBanner');
     const menuBtn = document.getElementById('menuBtn');
     const menuDropdown = document.getElementById('menuDropdown');
     const lightbox = document.getElementById('lightbox');
@@ -340,6 +350,7 @@
     let galleryImages = [];
     let galleryIndex = 0;
     let zoomed = false;
+    let currentCatIdx = null;
 
     menuBtn.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -375,19 +386,20 @@
       }
     }
 
-    function openProductLightbox(idx, prodIndex){
-      const cat = CATALOGUE[idx];
-      const images = [cat.products[prodIndex].image, ...(cat.commonPhotos || [])];
-      openLightbox(images, 0);
+    // ---------- View rendering (no history changes here — pure DOM) ----------
+    function renderHomeView(){
+      productView.classList.remove('active');
+      categoryView.classList.add('active');
+      backBtn.classList.remove('show');
+      searchWrap.style.display = 'block';
+      heroBanner.style.display = 'block';
+      currentCatIdx = null;
+      window.scrollTo({top:0, behavior:'smooth'});
     }
 
-    function openCommonLightbox(idx, commonIndex){
+    function renderCategoryView(idx){
       const cat = CATALOGUE[idx];
-      openLightbox(cat.commonPhotos || [], commonIndex);
-    }
-
-    function openCategory(idx){
-      const cat = CATALOGUE[idx];
+      currentCatIdx = idx;
       const commonCarousel = document.getElementById('commonCarousel');
       if (cat.commonPhotos && cat.commonPhotos.length){
         commonCarousel.innerHTML = cat.commonPhotos.map((src, ci) =>
@@ -420,16 +432,32 @@
       productView.classList.add('active');
       backBtn.classList.add('show');
       searchWrap.style.display = 'none';
+      heroBanner.style.display = 'none';
       window.scrollTo({top:0, behavior:'smooth'});
     }
 
-    function showCategories(){
-      productView.classList.remove('active');
-      categoryView.classList.add('active');
-      backBtn.classList.remove('show');
-      searchWrap.style.display = 'block';
-      window.scrollTo({top:0, behavior:'smooth'});
+    // ---------- Navigation (History API — every screen is a step you can back out of) ----------
+    function openCategory(idx){
+      history.pushState({ view:'category', idx }, '', '#cat-' + idx);
+      renderCategoryView(idx);
     }
+
+    function goBack(){
+      history.back();
+    }
+
+    window.addEventListener('popstate', (e) => {
+      const state = e.state;
+      lightbox.classList.remove('open');
+      if (!state || state.view === 'home'){
+        renderHomeView();
+      } else if (state.view === 'category'){
+        renderCategoryView(state.idx);
+      } else if (state.view === 'lightbox'){
+        renderCategoryView(state.catIdx);
+        showLightbox(state.images, state.index);
+      }
+    });
 
     function renderLightboxThumbs(){
       lightboxThumbs.innerHTML = galleryImages.map((src, i) =>
@@ -448,10 +476,36 @@
       renderLightboxThumbs();
     }
 
-    function openLightbox(images, index){
+    // Pure render — no history changes. Used both for user taps and for popstate replay.
+    function showLightbox(images, index){
       galleryImages = images;
       showGalleryIndex(index);
       lightbox.classList.add('open');
+    }
+
+    // User-initiated open — pushes a history step so back/close returns to this exact category.
+    function openLightbox(images, index){
+      history.pushState({ view:'lightbox', catIdx: currentCatIdx, images, index }, '', '#view');
+      showLightbox(images, index);
+    }
+
+    function openProductLightbox(idx, prodIndex){
+      const cat = CATALOGUE[idx];
+      const images = [cat.products[prodIndex].image, ...(cat.commonPhotos || [])];
+      openLightbox(images, 0);
+    }
+
+    function openCommonLightbox(idx, commonIndex){
+      const cat = CATALOGUE[idx];
+      openLightbox(cat.commonPhotos || [], commonIndex);
+    }
+
+    function closeLightbox(){
+      if (history.state && history.state.view === 'lightbox'){
+        history.back();
+      } else {
+        lightbox.classList.remove('open');
+      }
     }
 
     lightboxPrev.addEventListener('click', (e) => { e.stopPropagation(); showGalleryIndex(galleryIndex - 1); });
@@ -474,15 +528,16 @@
       }
     });
 
-    lightboxClose.addEventListener('click', () => lightbox.classList.remove('open'));
-    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) lightbox.classList.remove('open'); });
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
     document.addEventListener('keydown', (e) => {
       if (!lightbox.classList.contains('open')) return;
       if (e.key === 'ArrowLeft') showGalleryIndex(galleryIndex - 1);
       if (e.key === 'ArrowRight') showGalleryIndex(galleryIndex + 1);
-      if (e.key === 'Escape') lightbox.classList.remove('open');
+      if (e.key === 'Escape') closeLightbox();
     });
 
+    history.replaceState({ view:'home' }, '', location.pathname + location.search);
     renderCategories();
   </script>
 </body>
