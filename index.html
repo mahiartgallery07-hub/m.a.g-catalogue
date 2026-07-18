@@ -9,19 +9,19 @@
 <style>
   :root{
     --ink:#151318;
-    --paper:#F6EEDF;
-    --paper2:#EFE3CC;
+    --paper:#FFFFFF;
+    --paper2:#FFFFFF;
+    --brown:#7A5230;
     --saffron:#D98E2B;
     --teal:#2C6E68;
-    --card:#FFFCF6;
-    --line:#E5D5B7;
+    --card:#FFFFFF;
+    --line:#E7E1D6;
     --muted:#8A7C64;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   body{
     font-family:'Manrope', sans-serif;
-    background:linear-gradient(180deg, var(--paper) 0%, var(--paper2) 100%);
-    background-attachment:fixed;
+    background:var(--paper);
     color:var(--ink);
     -webkit-font-smoothing:antialiased;
   }
@@ -32,7 +32,7 @@
   /* ---------- Topbar ---------- */
   .topbar{
     position:sticky; top:0; z-index:20;
-    background:rgba(246,238,223,0.92);
+    background:rgba(255,255,255,0.92);
     backdrop-filter:blur(8px);
     border-bottom:1px solid var(--line);
     padding:12px clamp(16px,4vw,40px);
@@ -50,7 +50,7 @@
 
   .brand{ display:flex; flex-direction:column; align-items:center; text-align:center; }
   .brand img.logo{ width:60px; height:60px; border-radius:50%; object-fit:cover; margin-bottom:6px; border:2px solid var(--saffron); padding:1px; }
-  .brand .shopname{ font-family:'Fraunces',serif; font-weight:700; font-size:26px; letter-spacing:0.05em; line-height:1; }
+  .brand .shopname{ font-family:'Fraunces',serif; font-weight:700; font-size:26px; letter-spacing:0.05em; line-height:1; color:var(--brown); }
   .brand .handle{ font-size:12px; color:var(--muted); margin-top:4px; letter-spacing:0.02em; }
 
   .menu-wrap{ position:relative; }
@@ -116,7 +116,7 @@
   .search-wrap{ max-width:1180px; margin:0 auto; }
 
   /* ---------- Category grid ---------- */
-  .section-title{ font-size:clamp(20px,3vw,28px); margin-bottom:6px; }
+  .section-title{ font-size:clamp(20px,3vw,28px); margin-bottom:6px; color:var(--brown); }
   .section-sub{ color:var(--muted); font-size:14px; margin-bottom:24px; }
   .cat-grid{
     display:grid; grid-template-columns:repeat(auto-fill, minmax(220px,1fr)); gap:20px;
@@ -134,7 +134,7 @@
   }
   .cat-card .thumb img{ width:100%; height:100%; object-fit:cover; object-position:center; display:block; transition:transform .35s ease; }
   .cat-card:hover .thumb img{ transform:scale(1.06); }
-  .cat-card .cat-name{ padding:14px 16px 2px; font-family:'Fraunces',serif; font-weight:600; font-size:17px; }
+  .cat-card .cat-name{ padding:14px 16px 2px; font-family:'Fraunces',serif; font-weight:600; font-size:17px; color:var(--brown); }
   .cat-card .cat-count{ padding:0 16px 16px; color:var(--muted); font-size:12px; }
 
   /* ---------- Product grid (inside a category) — listing-style cards ---------- */
@@ -389,7 +389,6 @@
       categoryView.classList.add('active');
       backBtn.classList.remove('show');
       searchWrap.style.display = 'block';
-      heroBanner.style.display = 'block';
       currentCatIdx = null;
       window.scrollTo({top:0, behavior:'smooth'});
     }
@@ -419,7 +418,6 @@
       productView.classList.add('active');
       backBtn.classList.add('show');
       searchWrap.style.display = 'none';
-      heroBanner.style.display = 'none';
       window.scrollTo({top:0, behavior:'smooth'});
     }
 
