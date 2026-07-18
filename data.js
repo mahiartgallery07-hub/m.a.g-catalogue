@@ -13,16 +13,31 @@
 // "banner" = that category's "FRONT IMAGE/PIC OF CATEGORY" file.
 // "products" = each BAGx.jpg inside that category folder.
 //
-// NOTE: I left out the "COMMON PHOTO" / "COMMON PIC" files (sizing
-// charts, before/after oiling shots, etc.) since those looked like
-// general info graphics rather than individual products. Tell me if
-// you'd like those shown too (e.g. as extra info images on the
-// category page) and I'll add them back in.
+// HOW "COMMON PHOTOS" WORK NOW
+// ------------------------------------------------------------
+// Each category below has a "commonPhotos" list — this is for the
+// "COMMON PHOTO" / "COMMON PIC" files (sizing charts, before/after
+// oiling shots, care instructions, etc.) sitting in that category's
+// Drive folder.
 //
-// Only "Matka Bag" and "Crunchy Handle Bag" have photos uploaded so
-// far — the other 10 category folders you created are still empty.
-// Add photos to them the same way and send the word; I'll pull them
-// in too.
+// Once you add file IDs there, the site automatically:
+//   1. Shows them as a horizontal swipeable strip at the top of
+//      that category's page.
+//   2. Includes them in the full-screen "listing" carousel for
+//      EVERY product in that category — so tapping any bag photo
+//      opens a gallery that starts with that bag, and lets people
+//      swipe through to see the common/info photos too.
+//
+// To add one: open the file in Drive, click Share -> "Anyone with
+// the link -> Viewer", copy the long ID from the URL
+// (drive.google.com/file/d/THIS_PART/view), and add a line like:
+//   driveImg("PASTE_FILE_ID_HERE"),
+// inside that category's commonPhotos array below.
+//
+// Only "Matka Bag" and "Crunchy Handle Bag" have product photos
+// uploaded so far — the other 10 category folders you created are
+// still empty. Add photos to them the same way and send the word;
+// I'll pull them in too.
 // ============================================================
 
 function driveImg(id) {
@@ -34,8 +49,13 @@ const CATALOGUE = [
     name: "Matka Bag",
     thumbnail: driveImg("1i1PJMcmdIo0mehyMgeGk6BQeTWGVmV3K"),
     banner: driveImg("1i1PJMcmdIo0mehyMgeGk6BQeTWGVmV3K"),
+    // Paste this category's "COMMON PHOTO" file IDs below, e.g.
+    // driveImg("your_file_id_here"),
+    commonPhotos: [
+      driveImg("1YOJkddsgYMtPqyv5X89kMVenfuMKVJt0"), // COMMON PIC 1
+      driveImg("15XPQoLxu1oGJG_1PE92L80nSPuRLrNWh")  // COMMON PIC 2
+    ],
     products: [
-      { name: "Matka Bag 1",  image: driveImg("18AFGu4fAS1A1OZdB9hzxJByo4kyDv7vm") },
       { name: "Matka Bag 2",  image: driveImg("1SOcVLXMJ5c4C8aoQxRBrtADnCRKl8h1N") },
       { name: "Matka Bag 3",  image: driveImg("1nznot81yv9sH8POM4lM36cG6IyARlfGj") },
       { name: "Matka Bag 4",  image: driveImg("165geC_kUMO38b5woSkMUhP1DPz8IJH1w") },
@@ -56,6 +76,14 @@ const CATALOGUE = [
     name: "Crunchy Handle Bag",
     thumbnail: driveImg("1LNbLbNiZj9y2zHA0wsUnzd7aC4zTlg25"),
     banner: driveImg("1LNbLbNiZj9y2zHA0wsUnzd7aC4zTlg25"),
+    // Paste this category's "COMMON PHOTO" file IDs below, e.g.
+    // driveImg("your_file_id_here"),
+    commonPhotos: [
+      driveImg("1pYhoRbc-hy2rZK-1i03sYa58Fj0UwNdk"), // COMMON PHOTO 1
+      driveImg("1rHcTS-hHXXt3RljA6HgufQY7PvBAJ24F"), // COMMON PHOTO 2
+      driveImg("1cKZ7INa2_J7RMDAVvF8S5JEYPiuLVHtn"), // COMMON PHOTO 3
+      driveImg("1R8rPH_UQ05cg_p3KByNhFZfjtY4nK3oS")  // COMMON PHOTO 4
+    ],
     products: [
       { name: "Crunchy Handle Bag 1",  image: driveImg("1Ox4u5QsDgKuLv7Dv00OELZ-2WR2_3K-I") },
       { name: "Crunchy Handle Bag 2",  image: driveImg("1WNydsl8vhv6SH-fuk6G7h0jRVePXPan6") },
@@ -76,4 +104,14 @@ const CATALOGUE = [
   }
   // 👉 Add more categories here once you upload photos into their
   // Drive folders (BACKPACK, MEN'S WALLET, LAPTOP BAG, etc.)
+  // Copy this shape for each new one:
+  // {
+  //   name: "Category Name",
+  //   thumbnail: driveImg("front_image_file_id"),
+  //   banner: driveImg("front_image_file_id"),
+  //   commonPhotos: [ driveImg("common_photo_file_id"), ... ],
+  //   products: [
+  //     { name: "Category Name 1", image: driveImg("file_id") },
+  //   ]
+  // }
 ];
