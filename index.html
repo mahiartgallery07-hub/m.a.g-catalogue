@@ -115,19 +115,42 @@
     transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
   }
   .cat-card:hover{ transform:translateY(-4px); box-shadow:0 14px 30px -12px rgba(21,19,24,0.18); border-color:var(--saffron); }
-  .cat-card .thumb{ width:100%; aspect-ratio:4/3; overflow:hidden; background:#eee; }
-  .cat-card .thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .cat-card .thumb{
+    width:100%; aspect-ratio:3/4; overflow:hidden; position:relative;
+    background:linear-gradient(160deg,#F3ECDD,#EBE1CC);
+  }
+  .cat-card .thumb img{ width:100%; height:100%; object-fit:contain; object-position:center; display:block; padding:10px; transition:transform .3s ease; }
+  .cat-card:hover .thumb img{ transform:scale(1.04); }
   .cat-card .cat-name{ padding:12px 14px 4px; font-family:'Fraunces',serif; font-weight:600; font-size:16px; }
   .cat-card .cat-count{ padding:0 14px 12px; color:var(--muted); font-size:12px; }
 
-  /* ---------- Product grid (inside a category) ---------- */
+  /* ---------- Product grid (inside a category) — listing-style cards ---------- */
   .prod-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(200px,1fr)); gap:18px; }
-  .prod-card{ background:var(--card); border:1px solid var(--line); border-radius:12px; overflow:hidden; }
-  .prod-card .thumb{ position:relative; width:100%; aspect-ratio:1/1; background:#eee; overflow:hidden; cursor:zoom-in; }
-  .prod-card .thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .prod-card{
+    background:var(--card); border:1px solid var(--line); border-radius:12px; overflow:hidden;
+    transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  }
+  .prod-card:hover{ transform:translateY(-3px); box-shadow:0 12px 26px -14px rgba(21,19,24,0.22); border-color:var(--saffron); }
+  .prod-card .thumb{
+    position:relative; width:100%; aspect-ratio:3/4; overflow:hidden; cursor:zoom-in;
+    background:linear-gradient(160deg,#F3ECDD,#EBE1CC);
+  }
+  .prod-card .thumb img{ width:100%; height:100%; object-fit:contain; object-position:center; display:block; padding:12px; transition:transform .3s ease; }
+  .prod-card:hover .thumb img{ transform:scale(1.05); }
+  .prod-card .thumb::after{
+    content:""; position:absolute; inset:0; opacity:0; transition:opacity .18s ease;
+    background:rgba(21,19,24,0.06);
+  }
+  .prod-card:hover .thumb::after{ opacity:1; }
+  .prod-card .view-hint{
+    position:absolute; left:8px; bottom:8px; padding:5px 10px; border-radius:999px;
+    background:rgba(21,19,24,0.72); color:#fff; font-size:10px; font-weight:600; letter-spacing:.03em;
+    opacity:0; transform:translateY(4px); transition:opacity .18s ease, transform .18s ease; pointer-events:none;
+  }
+  .prod-card:hover .view-hint{ opacity:1; transform:translateY(0); }
   .prod-card .share-btn{
     position:absolute; top:8px; right:8px; width:30px; height:30px; border-radius:50%;
-    background:rgba(255,255,255,0.92); border:1px solid var(--line);
+    background:rgba(255,255,255,0.92); border:1px solid var(--line); z-index:2;
     display:flex; align-items:center; justify-content:center; cursor:pointer;
   }
   .prod-card .share-btn svg{ width:14px; height:14px; }
@@ -146,7 +169,8 @@
   .common-carousel::-webkit-scrollbar-thumb{ background:var(--line); border-radius:10px; }
   .common-carousel img{
     scroll-snap-align:center; flex:0 0 88%; max-width:420px;
-    aspect-ratio:4/5; object-fit:cover; border-radius:14px; background:#eee;
+    aspect-ratio:4/5; object-fit:contain; border-radius:14px;
+    background:linear-gradient(160deg,#F3ECDD,#EBE1CC); padding:10px;
     cursor:zoom-in;
   }
   @media (min-width:640px){
@@ -351,12 +375,23 @@
       }
     }
 
+    function openProductLightbox(idx, prodIndex){
+      const cat = CATALOGUE[idx];
+      const images = [cat.products[prodIndex].image, ...(cat.commonPhotos || [])];
+      openLightbox(images, 0);
+    }
+
+    function openCommonLightbox(idx, commonIndex){
+      const cat = CATALOGUE[idx];
+      openLightbox(cat.commonPhotos || [], commonIndex);
+    }
+
     function openCategory(idx){
       const cat = CATALOGUE[idx];
       const commonCarousel = document.getElementById('commonCarousel');
       if (cat.commonPhotos && cat.commonPhotos.length){
-        commonCarousel.innerHTML = cat.commonPhotos.map(src =>
-          `<img src="${src}" alt="${cat.name}" onclick="openLightbox([...(CATALOGUE[${idx}].commonPhotos||[]), ...CATALOGUE[${idx}].products.map(p=>p.image)], ${cat.commonPhotos.indexOf(src)})">`
+        commonCarousel.innerHTML = cat.commonPhotos.map((src, ci) =>
+          `<img src="${src}" alt="${cat.name}" onclick="openCommonLightbox(${idx}, ${ci})">`
         ).join('');
         commonCarousel.style.display = 'flex';
       } else {
@@ -370,8 +405,9 @@
         const card = document.createElement('div');
         card.className = 'prod-card';
         card.innerHTML = `
-          <div class="thumb" onclick="openLightbox([...(CATALOGUE[${idx}].commonPhotos||[]), ...CATALOGUE[${idx}].products.map(p=>p.image)], ${i} + (CATALOGUE[${idx}].commonPhotos ? CATALOGUE[${idx}].commonPhotos.length : 0))">
+          <div class="thumb" onclick="openProductLightbox(${idx}, ${i})">
             <img src="${p.image}" alt="${p.name}">
+            <div class="view-hint">Tap to view</div>
             <div class="share-btn" onclick="event.stopPropagation(); shareProduct('${p.name.replace(/'/g,"\\'")}','${p.image}')">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="2.4"/><circle cx="6" cy="12" r="2.4"/><circle cx="18" cy="19" r="2.4"/><line x1="8.1" y1="10.7" x2="15.9" y2="6.3"/><line x1="8.1" y1="13.3" x2="15.9" y2="17.7"/></svg>
             </div>
