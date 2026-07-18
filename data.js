@@ -1,526 +1,117 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mahi Art Gallery — Catalogue</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --ink:#151318;
-    --paper:#F6EEDF;
-    --paper2:#EFE3CC;
-    --saffron:#D98E2B;
-    --teal:#2C6E68;
-    --card:#FFFCF6;
-    --line:#E5D5B7;
-    --muted:#8A7C64;
+// ============================================================
+// CATALOGUE DATA — pulled live from your new Google Drive
+// "CATEGORIES" folder (owner: hanwantdabi@gmail.com)
+// ------------------------------------------------------------
+// This is the ONLY file you need to edit to update your website.
+// No backend, no database — just this list of categories/products.
+//
+// Each image is a direct Google Drive link built from the file's ID:
+// https://drive.google.com/thumbnail?id=FILE_ID&sz=w1000
+// Make sure every new file you add is shared as
+// "Anyone with the link -> Viewer" or it won't show on the site.
+//
+// "banner" = that category's "FRONT IMAGE/PIC OF CATEGORY" file.
+// "products" = each BAGx.jpg inside that category folder.
+//
+// HOW "COMMON PHOTOS" WORK NOW
+// ------------------------------------------------------------
+// Each category below has a "commonPhotos" list — this is for the
+// "COMMON PHOTO" / "COMMON PIC" files (sizing charts, before/after
+// oiling shots, care instructions, etc.) sitting in that category's
+// Drive folder.
+//
+// Once you add file IDs there, the site automatically:
+//   1. Shows them as a horizontal swipeable strip at the top of
+//      that category's page.
+//   2. Includes them in the full-screen "listing" carousel for
+//      EVERY product in that category — so tapping any bag photo
+//      opens a gallery that starts with that bag, and lets people
+//      swipe through to see the common/info photos too.
+//
+// To add one: open the file in Drive, click Share -> "Anyone with
+// the link -> Viewer", copy the long ID from the URL
+// (drive.google.com/file/d/THIS_PART/view), and add a line like:
+//   driveImg("PASTE_FILE_ID_HERE"),
+// inside that category's commonPhotos array below.
+//
+// Only "Matka Bag" and "Crunchy Handle Bag" have product photos
+// uploaded so far — the other 10 category folders you created are
+// still empty. Add photos to them the same way and send the word;
+// I'll pull them in too.
+// ============================================================
+
+function driveImg(id) {
+  return "https://drive.google.com/thumbnail?id=" + id + "&sz=w1000";
+}
+
+const CATALOGUE = [
+  {
+    name: "Matka Bag",
+    thumbnail: driveImg("1i1PJMcmdIo0mehyMgeGk6BQeTWGVmV3K"),
+    banner: driveImg("1i1PJMcmdIo0mehyMgeGk6BQeTWGVmV3K"),
+    // Paste this category's "COMMON PHOTO" file IDs below, e.g.
+    // driveImg("your_file_id_here"),
+    commonPhotos: [
+      driveImg("1YOJkddsgYMtPqyv5X89kMVenfuMKVJt0"), // COMMON PIC 1
+      driveImg("15XPQoLxu1oGJG_1PE92L80nSPuRLrNWh")  // COMMON PIC 2
+    ],
+    products: [
+      { name: "Matka Bag 2",  image: driveImg("1SOcVLXMJ5c4C8aoQxRBrtADnCRKl8h1N") },
+      { name: "Matka Bag 3",  image: driveImg("1nznot81yv9sH8POM4lM36cG6IyARlfGj") },
+      { name: "Matka Bag 4",  image: driveImg("165geC_kUMO38b5woSkMUhP1DPz8IJH1w") },
+      { name: "Matka Bag 5",  image: driveImg("1M5pqliafwLqGoFvzoO2wdkfcUNCb_7ge") },
+      { name: "Matka Bag 6",  image: driveImg("1e24rjxBJR99uLURDBtrJzXRwz9BxTZdZ") },
+      { name: "Matka Bag 7",  image: driveImg("1U1jEtZ4aucywP49wPQOlpb3rBIxaEErQ") },
+      { name: "Matka Bag 8",  image: driveImg("1feN3OeZbxmPAJEg5mm1euI6myB-swDuB") },
+      { name: "Matka Bag 9",  image: driveImg("1OLWDTzymPCErXdIz6Yp3NUCsRtkIG8PK") },
+      { name: "Matka Bag 10", image: driveImg("1beKWyH6J9vI0Ymp-SpZOeUXmDFJyu1ck") },
+      { name: "Matka Bag 11", image: driveImg("1ONt1FHhagzz3NGWsAG7kJqbyVJjZIasp") },
+      { name: "Matka Bag 12", image: driveImg("1IG3ACEN91fh4bhQ8z3YRd6G81t5dxD_D") },
+      { name: "Matka Bag 13", image: driveImg("1sCs0liaWH1HQi5g_sT6IO5vNjS0fUxKO") },
+      { name: "Matka Bag 14", image: driveImg("1B4WN0q_tUPv_GBVq2yZ-WWcoJcBMxRJP") },
+      { name: "Matka Bag 15", image: driveImg("1K0QynVVm3kvTmFeqroRepDF9s5xKgvIz") }
+    ]
+  },
+  {
+    name: "Crunchy Handle Bag",
+    thumbnail: driveImg("1LNbLbNiZj9y2zHA0wsUnzd7aC4zTlg25"),
+    banner: driveImg("1LNbLbNiZj9y2zHA0wsUnzd7aC4zTlg25"),
+    // Paste this category's "COMMON PHOTO" file IDs below, e.g.
+    // driveImg("your_file_id_here"),
+    commonPhotos: [
+      driveImg("1pYhoRbc-hy2rZK-1i03sYa58Fj0UwNdk"), // COMMON PHOTO 1
+      driveImg("1rHcTS-hHXXt3RljA6HgufQY7PvBAJ24F"), // COMMON PHOTO 2
+      driveImg("1cKZ7INa2_J7RMDAVvF8S5JEYPiuLVHtn"), // COMMON PHOTO 3
+      driveImg("1R8rPH_UQ05cg_p3KByNhFZfjtY4nK3oS")  // COMMON PHOTO 4
+    ],
+    products: [
+      { name: "Crunchy Handle Bag 1",  image: driveImg("1Ox4u5QsDgKuLv7Dv00OELZ-2WR2_3K-I") },
+      { name: "Crunchy Handle Bag 2",  image: driveImg("1WNydsl8vhv6SH-fuk6G7h0jRVePXPan6") },
+      { name: "Crunchy Handle Bag 3",  image: driveImg("13PzrRpClpD3OIE7c-3T6CL_TwWjJwH3W") },
+      { name: "Crunchy Handle Bag 4",  image: driveImg("1n9aVKU7o9yLZk8z6VOfgNXOnDz5GSdRD") },
+      { name: "Crunchy Handle Bag 5",  image: driveImg("1phoDahhn8IlV_dD_tDhj8C0J5YiCGlxN") },
+      { name: "Crunchy Handle Bag 6",  image: driveImg("1eIh5FWyYrO-xNY_Xky6dk10Z39s1fMev") },
+      { name: "Crunchy Handle Bag 7",  image: driveImg("1P-YkqExn2Sb_F6TGMqQKJQ4nRO0q-Qmx") },
+      { name: "Crunchy Handle Bag 8",  image: driveImg("1pnuabpaqF9eHFZhe9nvpMBuI-fJpIhKk") },
+      { name: "Crunchy Handle Bag 9",  image: driveImg("1XNRQbhRp4aGNPMkJUsoyBJICXEDRxl3P") },
+      { name: "Crunchy Handle Bag 10", image: driveImg("1zjobxtP0eSqDrti7OYfB97hVveTa5XEA") },
+      { name: "Crunchy Handle Bag 11", image: driveImg("1Pw4D_CVUDan38xZIDyxk8TcgPyiXIYOQ") },
+      { name: "Crunchy Handle Bag 12", image: driveImg("1DwEitJbKCW3VaS6EeXTyo748AXSUOcdv") },
+      { name: "Crunchy Handle Bag 13", image: driveImg("1EYmNafZy5RQZhz9aWBW55HYvisoUZWvm") },
+      { name: "Crunchy Handle Bag 14", image: driveImg("19LfNDOVdPjQiujrjsdbk_Tu5rge607-a") },
+      { name: "Crunchy Handle Bag 15", image: driveImg("1bQAzDo2ROMIAnxN9xb__F_L_ijfWV3E8") }
+    ]
   }
-  *{box-sizing:border-box; margin:0; padding:0;}
-  body{
-    font-family:'Manrope', sans-serif;
-    background:linear-gradient(180deg, var(--paper) 0%, var(--paper2) 100%);
-    background-attachment:fixed;
-    color:var(--ink);
-    -webkit-font-smoothing:antialiased;
-  }
-  h1,h2,h3{ font-family:'Fraunces', serif; font-weight:700; }
-  button{ font-family:inherit; }
-  a{ color:inherit; text-decoration:none; }
-
-  /* ---------- Topbar ---------- */
-  .topbar{
-    position:sticky; top:0; z-index:20;
-    background:rgba(246,238,223,0.92);
-    backdrop-filter:blur(8px);
-    border-bottom:1px solid var(--line);
-    padding:12px clamp(16px,4vw,40px);
-    display:flex; align-items:center; justify-content:space-between;
-  }
-  .topbar .side{ display:flex; align-items:center; gap:8px; position:relative; }
-  .icon-btn{
-    width:38px; height:38px; border-radius:50%;
-    border:1px solid var(--line); background:#fff;
-    display:flex; align-items:center; justify-content:center;
-    cursor:pointer; color:var(--ink);
-  }
-  .icon-btn:hover{ border-color:var(--saffron); color:var(--saffron); }
-  .icon-btn svg{ width:18px; height:18px; }
-
-  .brand{ display:flex; flex-direction:column; align-items:center; text-align:center; }
-  .brand img.logo{ width:60px; height:60px; border-radius:50%; object-fit:cover; margin-bottom:6px; border:2px solid var(--saffron); padding:1px; }
-  .brand .shopname{ font-family:'Fraunces',serif; font-weight:700; font-size:26px; letter-spacing:0.05em; line-height:1; }
-  .brand .handle{ font-size:12px; color:var(--muted); margin-top:4px; letter-spacing:0.02em; }
-
-  .menu-wrap{ position:relative; }
-  .menu-dropdown{
-    display:none; position:absolute; right:0; top:44px;
-    background:#fff; border:1px solid var(--line); border-radius:10px;
-    box-shadow:0 12px 28px -10px rgba(21,19,24,0.25);
-    min-width:190px; overflow:hidden; z-index:30;
-  }
-  .menu-dropdown.open{ display:block; }
-  .menu-dropdown a{
-    display:block; padding:12px 16px; font-size:14px; font-weight:600;
-    border-bottom:1px solid var(--line);
-  }
-  .menu-dropdown a:last-child{ border-bottom:none; }
-  .menu-dropdown a:hover{ background:var(--paper); color:var(--saffron); }
-
-  /* ---------- Banner ---------- */
-  .banner{
-    display:none;
-    position:relative; width:100%; height:30vh; min-height:180px;
-    overflow:hidden; background:var(--ink);
-  }
-  .banner img{ width:100%; height:100%; object-fit:cover; display:block; opacity:0.85; }
-  .banner-overlay{
-    position:absolute; inset:0;
-    display:flex; flex-direction:column; justify-content:flex-end;
-    padding:22px clamp(16px,4vw,40px);
-    background:linear-gradient(180deg, rgba(21,19,24,0) 30%, rgba(21,19,24,0.75) 100%);
-  }
-  .banner-overlay .eyebrow{ color:var(--saffron); font-weight:600; letter-spacing:0.14em; font-size:12px; text-transform:uppercase; }
-  .banner-overlay h1{ color:#fff; font-size:clamp(24px,4.5vw,40px); margin-top:6px; }
-
-  /* ---------- Search bar ---------- */
-  .search-wrap{ padding:28px clamp(16px,4vw,40px) 4px; }
-  .search-bar{
-    display:flex; align-items:center; gap:12px;
-    background:var(--card); border:1px solid var(--line); border-radius:999px;
-    padding:14px 20px; max-width:480px;
-    box-shadow:0 8px 20px -12px rgba(21,19,24,0.15);
-    transition:border-color .18s ease, box-shadow .18s ease;
-  }
-  .search-bar:focus-within{
-    border-color:var(--saffron);
-    box-shadow:0 8px 22px -10px rgba(217,142,43,0.35);
-  }
-  .search-bar input{
-    border:none; outline:none; flex:1; font-size:15px; font-family:'Manrope',sans-serif; background:transparent; color:var(--ink);
-  }
-  .search-bar input::placeholder{ color:var(--muted); }
-  .search-bar svg{ width:17px; height:17px; color:var(--saffron); flex-shrink:0; }
-
-  /* ---------- Nav / breadcrumb ---------- */
-  .back-btn{
-    display:none; align-items:center; gap:8px;
-    background:none; border:1px solid var(--line); border-radius:999px;
-    padding:8px 16px; font-weight:600; font-size:14px; color:var(--ink); cursor:pointer;
-  }
-  .back-btn:hover{ border-color:var(--saffron); color:var(--saffron); }
-  .back-btn.show{ display:inline-flex; }
-
-  main{ padding: 24px clamp(16px,4vw,40px) 80px; max-width:1180px; margin:0 auto; }
-  .search-wrap{ max-width:1180px; margin:0 auto; }
-
-  /* ---------- Category grid ---------- */
-  .section-title{ font-size:clamp(20px,3vw,28px); margin-bottom:6px; }
-  .section-sub{ color:var(--muted); font-size:14px; margin-bottom:24px; }
-  .cat-grid{
-    display:grid; grid-template-columns:repeat(auto-fill, minmax(220px,1fr)); gap:20px;
-  }
-  .cat-card{
-    background:var(--card); border:1px solid var(--line); border-radius:18px;
-    overflow:hidden; cursor:pointer;
-    box-shadow:0 6px 16px -12px rgba(21,19,24,0.18);
-    transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-  }
-  .cat-card:hover{ transform:translateY(-6px); box-shadow:0 20px 36px -14px rgba(21,19,24,0.24); border-color:var(--saffron); }
-  .cat-card .thumb{
-    width:100%; aspect-ratio:4/5; overflow:hidden; position:relative;
-    background:linear-gradient(160deg,#F3ECDD,#EBE1CC);
-  }
-  .cat-card .thumb img{ width:100%; height:100%; object-fit:cover; object-position:center; display:block; transition:transform .35s ease; }
-  .cat-card:hover .thumb img{ transform:scale(1.06); }
-  .cat-card .cat-name{ padding:14px 16px 2px; font-family:'Fraunces',serif; font-weight:600; font-size:17px; }
-  .cat-card .cat-count{ padding:0 16px 16px; color:var(--muted); font-size:12px; }
-
-  /* ---------- Product grid (inside a category) — listing-style cards ---------- */
-  .prod-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(190px,1fr)); gap:16px; }
-  .prod-card{
-    background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden;
-    box-shadow:0 6px 16px -12px rgba(21,19,24,0.18);
-    transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-  }
-  .prod-card:hover{ transform:translateY(-4px); box-shadow:0 16px 30px -14px rgba(21,19,24,0.24); border-color:var(--saffron); }
-  .prod-card .thumb{
-    position:relative; width:100%; aspect-ratio:4/5; overflow:hidden; cursor:zoom-in;
-    background:linear-gradient(160deg,#F3ECDD,#EBE1CC);
-  }
-  .prod-card .thumb img{ width:100%; height:100%; object-fit:cover; object-position:center; display:block; transition:transform .35s ease; }
-  .prod-card:hover .thumb img{ transform:scale(1.06); }
-  .prod-card .thumb::after{
-    content:""; position:absolute; inset:0; opacity:0; transition:opacity .18s ease;
-    background:rgba(21,19,24,0.06);
-  }
-  .prod-card:hover .thumb::after{ opacity:1; }
-  .prod-card .view-hint{
-    position:absolute; left:8px; bottom:8px; padding:5px 10px; border-radius:999px;
-    background:rgba(21,19,24,0.72); color:#fff; font-size:10px; font-weight:600; letter-spacing:.03em;
-    opacity:0; transform:translateY(4px); transition:opacity .18s ease, transform .18s ease; pointer-events:none;
-  }
-  .prod-card:hover .view-hint{ opacity:1; transform:translateY(0); }
-  .prod-card .share-btn{
-    position:absolute; top:8px; right:8px; width:30px; height:30px; border-radius:50%;
-    background:rgba(255,255,255,0.92); border:1px solid var(--line); z-index:2;
-    display:flex; align-items:center; justify-content:center; cursor:pointer;
-  }
-  .prod-card .share-btn svg{ width:14px; height:14px; }
-  .prod-card .share-btn:hover{ border-color:var(--saffron); color:var(--saffron); }
-  .prod-card .prod-name{ padding:10px 12px 12px; font-weight:600; font-size:13px; border-top:1px solid var(--line); }
-
-  .view{ display:none; }
-  .view.active{ display:block; }
-
-  /* ---------- Lightbox ---------- */
-  .lightbox{
-    display:none; position:fixed; inset:0; z-index:100;
-    background:rgba(10,9,11,0.95);
-    flex-direction:column; align-items:center; justify-content:center;
-  }
-  .lightbox.open{ display:flex; }
-  .lightbox-frame{
-    position:relative; width:100%; height:100%; max-width:480px; max-height:82vh;
-    margin:auto; display:flex; flex-direction:column;
-    border-radius:16px; overflow:hidden; background:#0a090b;
-  }
-  @media (min-width:640px){
-    .lightbox-frame{ max-height:80vh; height:80vh; box-shadow:0 30px 80px -20px rgba(0,0,0,0.6); }
-  }
-  .lightbox-topbar{
-    position:absolute; top:16px; right:16px; display:flex; gap:10px; z-index:5;
-  }
-  .lightbox-topbar button{
-    width:38px; height:38px; border-radius:50%; border:none; cursor:pointer;
-    background:rgba(255,255,255,0.12); color:#fff;
-    display:flex; align-items:center; justify-content:center;
-  }
-  .lightbox-topbar button:hover{ background:rgba(255,255,255,0.25); }
-  .lightbox-topbar svg{ width:18px; height:18px; }
-  .lightbox-stage{
-    position:relative; width:100%; flex:1; display:flex; align-items:center; justify-content:center;
-    padding:56px 48px 8px; min-height:0;
-  }
-  .lightbox-stage img{ max-width:100%; max-height:100%; border-radius:6px; object-fit:contain; transition:transform .25s ease; cursor:zoom-in; }
-  .lightbox-nav{
-    position:absolute; top:50%; transform:translateY(-50%);
-    width:42px; height:42px; border-radius:50%; border:none; cursor:pointer;
-    background:rgba(255,255,255,0.12); color:#fff;
-    display:flex; align-items:center; justify-content:center;
-  }
-  .lightbox-nav:hover{ background:rgba(255,255,255,0.25); }
-  .lightbox-nav svg{ width:20px; height:20px; }
-  .lightbox-prev{ left:16px; }
-  .lightbox-next{ right:16px; }
-  .lightbox-thumbs{
-    display:flex; gap:8px; overflow-x:auto; padding:10px 14px 14px; max-width:100%; flex-shrink:0;
-  }
-  .lightbox-thumbs img{
-    width:46px; height:46px; object-fit:cover; border-radius:8px; cursor:pointer;
-    border:2px solid transparent; opacity:0.55; flex-shrink:0;
-  }
-  .lightbox-thumbs img.active{ border-color:var(--saffron); opacity:1; }
-
-  @media (max-width:640px){
-    .cat-grid{ grid-template-columns:repeat(2, 1fr); gap:12px; }
-    .prod-grid{ grid-template-columns:repeat(2, 1fr); gap:12px; }
-    .cat-card .cat-name{ font-size:13px; }
-    .brand .shopname{ font-size:19px; }
-    .brand .handle{ font-size:10px; }
-    .brand img.logo{ width:46px; height:46px; }
-  }
-</style>
-</head>
-<body>
-
-  <div class="topbar">
-    <div class="side">
-      <a class="icon-btn" href="https://instagram.com/mahiartgallary_" target="_blank" rel="noopener" aria-label="Instagram">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
-      </a>
-      <a class="icon-btn" href="https://wa.me/919414417958" target="_blank" rel="noopener" aria-label="WhatsApp">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.36 5.07L2 22l5.1-1.33A9.94 9.94 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.62 0-3.13-.47-4.4-1.28l-.32-.2-3.02.79.81-2.94-.21-.3A7.94 7.94 0 0 1 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8zm4.38-5.9c-.24-.12-1.42-.7-1.64-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1.02-.38-1.94-1.2-.72-.64-1.2-1.43-1.34-1.67-.14-.24-.02-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.19-.46-.39-.4-.54-.4-.14-.01-.3-.01-.46-.01s-.42.06-.64.3c-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.12 3.64.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.42-.58 1.62-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28z"/></svg>
-      </a>
-    </div>
-
-    <div class="brand">
-      <img class="logo" src="images/logo.png" alt="Mahi Art Gallery logo">
-      <div class="shopname">MAHI ART GALLERY</div>
-      <div class="handle">@mahiartgallary_</div>
-    </div>
-
-    <div class="side">
-      <button class="back-btn" id="backBtn" onclick="goBack()">← Back</button>
-      <div class="menu-wrap">
-        <button class="icon-btn" id="menuBtn" aria-label="Menu">
-          <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="12" cy="19" r="1.6"/></svg>
-        </button>
-        <div class="menu-dropdown" id="menuDropdown">
-          <a href="https://wa.me/919414417958?text=Hi%2C%20I%27m%20interested%20in%20wholesale%20orders" target="_blank" rel="noopener">Wholesale Request</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="banner" id="heroBanner">
-    <img src="images/banner.png" alt="Mahi Art Gallery banner">
-    <div class="banner-overlay">
-      <div class="eyebrow">Our Collection</div>
-      <h1 id="bannerTitle">Full Catalogue</h1>
-    </div>
-  </div>
-
-  <div class="search-wrap" id="searchWrap">
-    <div class="search-bar">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input type="text" id="searchInput" placeholder="Search category…">
-    </div>
-  </div>
-
-  <main>
-    <!-- CATEGORY VIEW -->
-    <div class="view active" id="categoryView">
-      <div class="section-title">Browse by category</div>
-      <div class="section-sub">Tap a category to open its full catalogue</div>
-      <div class="cat-grid" id="catGrid"></div>
-    </div>
-
-    <!-- PRODUCT VIEW -->
-    <div class="view" id="productView">
-      <div class="section-title" id="prodTitle">Category</div>
-      <div class="section-sub" id="prodSub"></div>
-      <div class="prod-grid" id="prodGrid"></div>
-    </div>
-  </main>
-
-  <div class="lightbox" id="lightbox">
-    <div class="lightbox-frame">
-      <div class="lightbox-topbar">
-        <button id="lightboxZoom" aria-label="Zoom">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
-        </button>
-        <button id="lightboxShare" aria-label="Share">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="2.4"/><circle cx="6" cy="12" r="2.4"/><circle cx="18" cy="19" r="2.4"/><line x1="8.1" y1="10.7" x2="15.9" y2="6.3"/><line x1="8.1" y1="13.3" x2="15.9" y2="17.7"/></svg>
-        </button>
-        <button id="lightboxClose" aria-label="Close">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
-        </button>
-      </div>
-      <div class="lightbox-stage">
-        <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-        </button>
-        <img id="lightboxImg" src="" alt="">
-        <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-        </button>
-      </div>
-      <div class="lightbox-thumbs" id="lightboxThumbs"></div>
-    </div>
-  </div>
-
-  <script src="data.js"></script>
-  <script>
-    const catGrid = document.getElementById('catGrid');
-    const prodGrid = document.getElementById('prodGrid');
-    const categoryView = document.getElementById('categoryView');
-    const productView = document.getElementById('productView');
-    const backBtn = document.getElementById('backBtn');
-    const prodTitle = document.getElementById('prodTitle');
-    const prodSub = document.getElementById('prodSub');
-    const searchInput = document.getElementById('searchInput');
-    const searchWrap = document.getElementById('searchWrap');
-    const heroBanner = document.getElementById('heroBanner');
-    const menuBtn = document.getElementById('menuBtn');
-    const menuDropdown = document.getElementById('menuDropdown');
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightboxImg');
-    const lightboxClose = document.getElementById('lightboxClose');
-    const lightboxPrev = document.getElementById('lightboxPrev');
-    const lightboxNext = document.getElementById('lightboxNext');
-    const lightboxThumbs = document.getElementById('lightboxThumbs');
-    const lightboxShare = document.getElementById('lightboxShare');
-    const lightboxZoom = document.getElementById('lightboxZoom');
-
-    let galleryImages = [];
-    let galleryIndex = 0;
-    let zoomed = false;
-    let currentCatIdx = null;
-
-    menuBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      menuDropdown.classList.toggle('open');
-    });
-    document.addEventListener('click', () => menuDropdown.classList.remove('open'));
-
-    function renderCategories(filter){
-      catGrid.innerHTML = '';
-      const list = CATALOGUE.filter(c => !filter || c.name.toLowerCase().includes(filter.toLowerCase()));
-      list.forEach((cat) => {
-        const idx = CATALOGUE.indexOf(cat);
-        const card = document.createElement('div');
-        card.className = 'cat-card';
-        card.onclick = () => openCategory(idx);
-        card.innerHTML = `
-          <div class="thumb"><img src="${cat.thumbnail}" alt="${cat.name}"></div>
-          <div class="cat-name">${cat.name}</div>
-          <div class="cat-count">${cat.products.length} item${cat.products.length === 1 ? '' : 's'}</div>
-        `;
-        catGrid.appendChild(card);
-      });
-    }
-
-    searchInput.addEventListener('input', (e) => renderCategories(e.target.value));
-
-    function shareProduct(name, image){
-      const shareUrl = image;
-      if (navigator.share){
-        navigator.share({ title: name, text: name, url: shareUrl }).catch(()=>{});
-      } else {
-        navigator.clipboard.writeText(shareUrl).then(() => alert('Image link copied!'));
-      }
-    }
-
-    // ---------- View rendering (no history changes here — pure DOM) ----------
-    function renderHomeView(){
-      productView.classList.remove('active');
-      categoryView.classList.add('active');
-      backBtn.classList.remove('show');
-      searchWrap.style.display = 'block';
-      heroBanner.style.display = 'block';
-      currentCatIdx = null;
-      window.scrollTo({top:0, behavior:'smooth'});
-    }
-
-    function renderCategoryView(idx){
-      const cat = CATALOGUE[idx];
-      currentCatIdx = idx;
-      prodTitle.textContent = cat.name;
-      prodSub.textContent = `${cat.products.length} item${cat.products.length === 1 ? '' : 's'} in this category`;
-      prodGrid.innerHTML = '';
-      cat.products.forEach((p, i) => {
-        const card = document.createElement('div');
-        card.className = 'prod-card';
-        card.innerHTML = `
-          <div class="thumb" onclick="openProductLightbox(${idx}, ${i})">
-            <img src="${p.image}" alt="${p.name}">
-            <div class="view-hint">Tap to view</div>
-            <div class="share-btn" onclick="event.stopPropagation(); shareProduct('${p.name.replace(/'/g,"\\'")}','${p.image}')">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="2.4"/><circle cx="6" cy="12" r="2.4"/><circle cx="18" cy="19" r="2.4"/><line x1="8.1" y1="10.7" x2="15.9" y2="6.3"/><line x1="8.1" y1="13.3" x2="15.9" y2="17.7"/></svg>
-            </div>
-          </div>
-          <div class="prod-name">${p.name}</div>
-        `;
-        prodGrid.appendChild(card);
-      });
-      categoryView.classList.remove('active');
-      productView.classList.add('active');
-      backBtn.classList.add('show');
-      searchWrap.style.display = 'none';
-      heroBanner.style.display = 'none';
-      window.scrollTo({top:0, behavior:'smooth'});
-    }
-
-    // ---------- Navigation (History API — every screen is a step you can back out of) ----------
-    function openCategory(idx){
-      history.pushState({ view:'category', idx }, '', '#cat-' + idx);
-      renderCategoryView(idx);
-    }
-
-    function goBack(){
-      history.back();
-    }
-
-    window.addEventListener('popstate', (e) => {
-      const state = e.state;
-      lightbox.classList.remove('open');
-      if (!state || state.view === 'home'){
-        renderHomeView();
-      } else if (state.view === 'category'){
-        renderCategoryView(state.idx);
-      } else if (state.view === 'lightbox'){
-        renderCategoryView(state.catIdx);
-        showLightbox(state.images, state.index);
-      }
-    });
-
-    function renderLightboxThumbs(){
-      lightboxThumbs.innerHTML = galleryImages.map((src, i) =>
-        `<img src="${src}" class="${i === galleryIndex ? 'active' : ''}" onclick="showGalleryIndex(${i})">`
-      ).join('');
-      const activeThumb = lightboxThumbs.querySelector('img.active');
-      if (activeThumb) activeThumb.scrollIntoView({ inline:'center', block:'nearest' });
-    }
-
-    function showGalleryIndex(i){
-      galleryIndex = (i + galleryImages.length) % galleryImages.length;
-      lightboxImg.src = galleryImages[galleryIndex];
-      zoomed = false;
-      lightboxImg.style.transform = 'scale(1)';
-      lightboxImg.style.cursor = 'zoom-in';
-      renderLightboxThumbs();
-    }
-
-    // Pure render — no history changes. Used both for user taps and for popstate replay.
-    function showLightbox(images, index){
-      galleryImages = images;
-      showGalleryIndex(index);
-      lightbox.classList.add('open');
-    }
-
-    // User-initiated open — pushes a history step so back/close returns to this exact category.
-    function openLightbox(images, index){
-      history.pushState({ view:'lightbox', catIdx: currentCatIdx, images, index }, '', '#view');
-      showLightbox(images, index);
-    }
-
-    function openProductLightbox(idx, prodIndex){
-      const cat = CATALOGUE[idx];
-      const images = [cat.products[prodIndex].image, ...(cat.commonPhotos || [])];
-      openLightbox(images, 0);
-    }
-
-    function closeLightbox(){
-      if (history.state && history.state.view === 'lightbox'){
-        history.back();
-      } else {
-        lightbox.classList.remove('open');
-      }
-    }
-
-    lightboxPrev.addEventListener('click', (e) => { e.stopPropagation(); showGalleryIndex(galleryIndex - 1); });
-    lightboxNext.addEventListener('click', (e) => { e.stopPropagation(); showGalleryIndex(galleryIndex + 1); });
-
-    lightboxZoom.addEventListener('click', (e) => {
-      e.stopPropagation();
-      zoomed = !zoomed;
-      lightboxImg.style.transform = zoomed ? 'scale(1.8)' : 'scale(1)';
-      lightboxImg.style.cursor = zoomed ? 'zoom-out' : 'zoom-in';
-    });
-
-    lightboxShare.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const src = galleryImages[galleryIndex];
-      if (navigator.share){
-        navigator.share({ title: 'Mahi Art Gallery', url: src }).catch(()=>{});
-      } else {
-        navigator.clipboard.writeText(src).then(() => alert('Image link copied!'));
-      }
-    });
-
-    lightboxClose.addEventListener('click', closeLightbox);
-    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
-    document.addEventListener('keydown', (e) => {
-      if (!lightbox.classList.contains('open')) return;
-      if (e.key === 'ArrowLeft') showGalleryIndex(galleryIndex - 1);
-      if (e.key === 'ArrowRight') showGalleryIndex(galleryIndex + 1);
-      if (e.key === 'Escape') closeLightbox();
-    });
-
-    history.replaceState({ view:'home' }, '', location.pathname + location.search);
-    renderCategories();
-  </script>
-</body>
-</html>
+  // 👉 Add more categories here once you upload photos into their
+  // Drive folders (BACKPACK, MEN'S WALLET, LAPTOP BAG, etc.)
+  // Copy this shape for each new one:
+  // {
+  //   name: "Category Name",
+  //   thumbnail: driveImg("front_image_file_id"),
+  //   banner: driveImg("front_image_file_id"),
+  //   commonPhotos: [ driveImg("common_photo_file_id"), ... ],
+  //   products: [
+  //     { name: "Category Name 1", image: driveImg("file_id") },
+  //   ]
+  // }
+];
