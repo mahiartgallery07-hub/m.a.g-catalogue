@@ -101,28 +101,36 @@
   .back-btn:hover{ border-color:var(--saffron); color:var(--saffron); }
   .back-btn.show{ display:inline-flex; }
 
-  main{ padding: 24px clamp(16px,4vw,40px) 80px; }
+  main{ padding: 24px clamp(16px,4vw,40px) 80px; max-width:1180px; margin:0 auto; }
+  .search-wrap{ padding:20px clamp(16px,4vw,40px) 0; max-width:1180px; margin:0 auto; }
+  .banner-overlay{
+    position:absolute; inset:0;
+    display:flex; flex-direction:column; justify-content:flex-end;
+    max-width:1180px; margin:0 auto; left:0; right:0;
+    padding:22px clamp(16px,4vw,40px);
+    background:linear-gradient(180deg, rgba(21,19,24,0) 30%, rgba(21,19,24,0.75) 100%);
+  }
 
   /* ---------- Category grid ---------- */
   .section-title{ font-size:clamp(20px,3vw,28px); margin-bottom:6px; }
   .section-sub{ color:var(--muted); font-size:14px; margin-bottom:24px; }
   .cat-grid{
-    display:grid; grid-template-columns:repeat(auto-fill, minmax(220px,1fr)); gap:20px;
+    display:grid; grid-template-columns:repeat(auto-fill, minmax(240px,1fr)); gap:22px;
   }
   .cat-card{
-    background:var(--card); border:1px solid var(--line); border-radius:14px;
+    background:var(--card); border:1px solid var(--line); border-radius:16px;
     overflow:hidden; cursor:pointer;
     transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
   }
-  .cat-card:hover{ transform:translateY(-4px); box-shadow:0 14px 30px -12px rgba(21,19,24,0.18); border-color:var(--saffron); }
+  .cat-card:hover{ transform:translateY(-5px); box-shadow:0 18px 34px -14px rgba(21,19,24,0.2); border-color:var(--saffron); }
   .cat-card .thumb{
-    width:100%; aspect-ratio:3/4; overflow:hidden; position:relative;
+    width:100%; aspect-ratio:1/1; overflow:hidden; position:relative;
     background:linear-gradient(160deg,#F3ECDD,#EBE1CC);
   }
-  .cat-card .thumb img{ width:100%; height:100%; object-fit:contain; object-position:center; display:block; padding:10px; transition:transform .3s ease; }
-  .cat-card:hover .thumb img{ transform:scale(1.04); }
-  .cat-card .cat-name{ padding:12px 14px 4px; font-family:'Fraunces',serif; font-weight:600; font-size:16px; }
-  .cat-card .cat-count{ padding:0 14px 12px; color:var(--muted); font-size:12px; }
+  .cat-card .thumb img{ width:100%; height:100%; object-fit:contain; object-position:center; display:block; padding:14px; transition:transform .3s ease; }
+  .cat-card:hover .thumb img{ transform:scale(1.05); }
+  .cat-card .cat-name{ padding:14px 16px 4px; font-family:'Fraunces',serif; font-weight:600; font-size:17px; }
+  .cat-card .cat-count{ padding:0 16px 16px; color:var(--muted); font-size:12px; }
 
   /* ---------- Product grid (inside a category) — listing-style cards ---------- */
   .prod-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(200px,1fr)); gap:18px; }
@@ -159,23 +167,6 @@
 
   .view{ display:none; }
   .view.active{ display:block; }
-
-  /* ---------- Common photos carousel ---------- */
-  .common-carousel{
-    display:flex; gap:10px; overflow-x:auto; scroll-snap-type:x mandatory;
-    padding-bottom:10px; margin-bottom:22px; -webkit-overflow-scrolling:touch;
-  }
-  .common-carousel::-webkit-scrollbar{ height:6px; }
-  .common-carousel::-webkit-scrollbar-thumb{ background:var(--line); border-radius:10px; }
-  .common-carousel img{
-    scroll-snap-align:center; flex:0 0 88%; max-width:420px;
-    aspect-ratio:4/5; object-fit:contain; border-radius:14px;
-    background:linear-gradient(160deg,#F3ECDD,#EBE1CC); padding:10px;
-    cursor:zoom-in;
-  }
-  @media (min-width:640px){
-    .common-carousel img{ flex-basis:340px; }
-  }
 
   /* ---------- Lightbox ---------- */
   .lightbox{
@@ -291,7 +282,6 @@
 
     <!-- PRODUCT VIEW -->
     <div class="view" id="productView">
-      <div class="common-carousel" id="commonCarousel" style="display:none;"></div>
       <div class="section-title" id="prodTitle">Category</div>
       <div class="section-sub" id="prodSub"></div>
       <div class="prod-grid" id="prodGrid"></div>
@@ -400,16 +390,6 @@
     function renderCategoryView(idx){
       const cat = CATALOGUE[idx];
       currentCatIdx = idx;
-      const commonCarousel = document.getElementById('commonCarousel');
-      if (cat.commonPhotos && cat.commonPhotos.length){
-        commonCarousel.innerHTML = cat.commonPhotos.map((src, ci) =>
-          `<img src="${src}" alt="${cat.name}" onclick="openCommonLightbox(${idx}, ${ci})">`
-        ).join('');
-        commonCarousel.style.display = 'flex';
-      } else {
-        commonCarousel.innerHTML = '';
-        commonCarousel.style.display = 'none';
-      }
       prodTitle.textContent = cat.name;
       prodSub.textContent = `${cat.products.length} item${cat.products.length === 1 ? '' : 's'} in this category`;
       prodGrid.innerHTML = '';
@@ -493,11 +473,6 @@
       const cat = CATALOGUE[idx];
       const images = [cat.products[prodIndex].image, ...(cat.commonPhotos || [])];
       openLightbox(images, 0);
-    }
-
-    function openCommonLightbox(idx, commonIndex){
-      const cat = CATALOGUE[idx];
-      openLightbox(cat.commonPhotos || [], commonIndex);
     }
 
     function closeLightbox(){
