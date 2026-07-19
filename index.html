@@ -360,13 +360,14 @@
       const list = CATALOGUE.filter(c => !filter || c.name.toLowerCase().includes(filter.toLowerCase()));
       list.forEach((cat) => {
         const idx = CATALOGUE.indexOf(cat);
+        const count = cat.type === 'subcategory' ? cat.subcategories.length : cat.products.length;
         const card = document.createElement('div');
         card.className = 'cat-card';
         card.onclick = () => openCategory(idx);
         card.innerHTML = `
           <div class="thumb"><img src="${cat.thumbnail}" alt="${cat.name}" loading="lazy" decoding="async"></div>
           <div class="cat-name">${cat.name}</div>
-          <div class="cat-count">${cat.products.length} item${cat.products.length === 1 ? '' : 's'}</div>
+          <div class="cat-count">${count} item${count === 1 ? '' : 's'}</div>
         `;
         catGrid.appendChild(card);
       });
@@ -397,23 +398,50 @@
       const cat = CATALOGUE[idx];
       currentCatIdx = idx;
       prodTitle.textContent = cat.name;
-      prodSub.textContent = `${cat.products.length} item${cat.products.length === 1 ? '' : 's'} in this category`;
       prodGrid.innerHTML = '';
-      cat.products.forEach((p, i) => {
-        const card = document.createElement('div');
-        card.className = 'prod-card';
-        card.innerHTML = `
-          <div class="thumb" onclick="openProductLightbox(${idx}, ${i})">
-            <img src="${p.image}" alt="${p.name}" loading="lazy" decoding="async">
-            <div class="view-hint">Tap to view</div>
-            <div class="share-btn" onclick="event.stopPropagation(); shareProduct('${p.name.replace(/'/g,"\\'")}','${p.image}')">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="2.4"/><circle cx="6" cy="12" r="2.4"/><circle cx="18" cy="19" r="2.4"/><line x1="8.1" y1="10.7" x2="15.9" y2="6.3"/><line x1="8.1" y1="13.3" x2="15.9" y2="17.7"/></svg>
+
+      if (cat.type === 'subcategory'){
+        // Listing-style category: each tile is one bag. Tapping it
+        // goes straight into a carousel of that bag's own photos —
+        // no product grid layer, no common photos mixed in.
+        const subs = cat.subcategories || [];
+        prodSub.textContent = `${subs.length} listing${subs.length === 1 ? '' : 's'} in this category`;
+        subs.forEach((s, i) => {
+          const card = document.createElement('div');
+          card.className = 'prod-card';
+          card.innerHTML = `
+            <div class="thumb" onclick="openSubcategoryLightbox(${idx}, ${i})">
+              <img src="${s.image}" alt="${s.name}" loading="lazy" decoding="async">
+              <div class="view-hint">Tap to view</div>
+              <div class="share-btn" onclick="event.stopPropagation(); shareProduct('${s.name.replace(/'/g,"\\'")}','${s.image}')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="2.4"/><circle cx="6" cy="12" r="2.4"/><circle cx="18" cy="19" r="2.4"/><line x1="8.1" y1="10.7" x2="15.9" y2="6.3"/><line x1="8.1" y1="13.3" x2="15.9" y2="17.7"/></svg>
+              </div>
             </div>
-          </div>
-          <div class="prod-name">${p.name}</div>
-        `;
-        prodGrid.appendChild(card);
-      });
+            <div class="prod-name">${s.name}</div>
+          `;
+          prodGrid.appendChild(card);
+        });
+      } else {
+        // Catalogue-style category: grid of every product, each
+        // opening a carousel of that product's photo + common photos.
+        prodSub.textContent = `${cat.products.length} item${cat.products.length === 1 ? '' : 's'} in this category`;
+        cat.products.forEach((p, i) => {
+          const card = document.createElement('div');
+          card.className = 'prod-card';
+          card.innerHTML = `
+            <div class="thumb" onclick="openProductLightbox(${idx}, ${i})">
+              <img src="${p.image}" alt="${p.name}" loading="lazy" decoding="async">
+              <div class="view-hint">Tap to view</div>
+              <div class="share-btn" onclick="event.stopPropagation(); shareProduct('${p.name.replace(/'/g,"\\'")}','${p.image}')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="2.4"/><circle cx="6" cy="12" r="2.4"/><circle cx="18" cy="19" r="2.4"/><line x1="8.1" y1="10.7" x2="15.9" y2="6.3"/><line x1="8.1" y1="13.3" x2="15.9" y2="17.7"/></svg>
+              </div>
+            </div>
+            <div class="prod-name">${p.name}</div>
+          `;
+          prodGrid.appendChild(card);
+        });
+      }
+
       categoryView.classList.remove('active');
       productView.classList.add('active');
       backBtn.classList.add('show');
@@ -478,6 +506,13 @@
       const cat = CATALOGUE[idx];
       const images = [cat.products[prodIndex].image, ...(cat.commonPhotos || [])];
       openLightbox(images, 0);
+    }
+
+    // Subcategory listings open straight into a carousel of just
+    // that bag's own photos — nothing else gets mixed in.
+    function openSubcategoryLightbox(idx, subIdx){
+      const sub = CATALOGUE[idx].subcategories[subIdx];
+      openLightbox(sub.photos, 0);
     }
 
     function closeLightbox(){
