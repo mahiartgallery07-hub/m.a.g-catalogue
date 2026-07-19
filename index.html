@@ -132,7 +132,7 @@
     width:100%; aspect-ratio:4/5; overflow:hidden; position:relative;
     background:linear-gradient(160deg,#F3ECDD,#EBE1CC);
   }
-  .cat-card .thumb img{ width:100%; height:100%; object-fit:cover; object-position:center; display:block; transition:transform .35s ease; }
+  .cat-card .thumb img{ width:100%; height:100%; object-fit:contain; object-position:center; display:block; transition:transform .35s ease; }
   .cat-card:hover .thumb img{ transform:scale(1.06); }
   .cat-card .cat-name{ padding:14px 16px 2px; font-family:'Fraunces',serif; font-weight:600; font-size:17px; color:var(--brown); }
   .cat-card .cat-count{ padding:0 16px 16px; color:var(--muted); font-size:12px; }
@@ -149,7 +149,7 @@
     position:relative; width:100%; aspect-ratio:4/5; overflow:hidden; cursor:zoom-in;
     background:linear-gradient(160deg,#F3ECDD,#EBE1CC);
   }
-  .prod-card .thumb img{ width:100%; height:100%; object-fit:cover; object-position:center; display:block; transition:transform .35s ease; }
+  .prod-card .thumb img{ width:100%; height:100%; object-fit:contain; object-position:center; display:block; transition:transform .35s ease; }
   .prod-card:hover .thumb img{ transform:scale(1.06); }
   .prod-card .thumb::after{
     content:""; position:absolute; inset:0; opacity:0; transition:opacity .18s ease;
@@ -364,7 +364,7 @@
         card.className = 'cat-card';
         card.onclick = () => openCategory(idx);
         card.innerHTML = `
-          <div class="thumb"><img src="${cat.thumbnail}" alt="${cat.name}"></div>
+          <div class="thumb"><img src="${cat.thumbnail}" alt="${cat.name}" loading="lazy" decoding="async"></div>
           <div class="cat-name">${cat.name}</div>
           <div class="cat-count">${cat.products.length} item${cat.products.length === 1 ? '' : 's'}</div>
         `;
@@ -404,7 +404,7 @@
         card.className = 'prod-card';
         card.innerHTML = `
           <div class="thumb" onclick="openProductLightbox(${idx}, ${i})">
-            <img src="${p.image}" alt="${p.name}">
+            <img src="${p.image}" alt="${p.name}" loading="lazy" decoding="async">
             <div class="view-hint">Tap to view</div>
             <div class="share-btn" onclick="event.stopPropagation(); shareProduct('${p.name.replace(/'/g,"\\'")}','${p.image}')">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="2.4"/><circle cx="6" cy="12" r="2.4"/><circle cx="18" cy="19" r="2.4"/><line x1="8.1" y1="10.7" x2="15.9" y2="6.3"/><line x1="8.1" y1="13.3" x2="15.9" y2="17.7"/></svg>
@@ -446,7 +446,7 @@
 
     function renderLightboxThumbs(){
       lightboxThumbs.innerHTML = galleryImages.map((src, i) =>
-        `<img src="${src}" class="${i === galleryIndex ? 'active' : ''}" onclick="showGalleryIndex(${i})">`
+        `<img src="${src}" class="${i === galleryIndex ? 'active' : ''}" onclick="showGalleryIndex(${i})" loading="lazy" decoding="async">`
       ).join('');
       const activeThumb = lightboxThumbs.querySelector('img.active');
       if (activeThumb) activeThumb.scrollIntoView({ inline:'center', block:'nearest' });
