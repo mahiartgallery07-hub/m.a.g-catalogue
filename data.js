@@ -44,6 +44,11 @@
 //   4. HAND PURSE              -> NEW, 9 products
 //   5. HAND CLUTCH             -> NEW, 9 products
 //   6. CROSS BODY BAG          -> 9 products (unchanged)
+//   7. COIN PURSE              -> NEW, 8 products (grid style)
+//   8. MESSENGER BAG           -> NEW, 4 listings (subcategory style)
+//   9. LAPTOP BAG              -> NEW, 5 listings (subcategory style)
+//  10. DUFFLE BAG              -> NEW, 5 listings (subcategory style)
+//  11. BACKPACK                -> NEW, 7 listings (subcategory style)
 //
 // NOTE: You have two folders that both look like a "hand purse"
 // category — "3.HAND PURSE ( CROSS BODY )" and
@@ -52,9 +57,32 @@
 // Body)" and "Hand Purse") rather than guessing you want them
 // merged. Rename or merge them yourself below if that's not right.
 //
-// Still-empty folders in Drive (no front pic / products yet):
-//   COIN PURSE, SLING BAG, SLING BAG (SQUARE), LAPTOP BAG,
-//   DUFFLE BAG, BACKPACK, MEN'S WALLET, CROSS BODY BAGS (5.)
+// ------------------------------------------------------------
+// TWO CATEGORY STYLES
+// ------------------------------------------------------------
+// A) "Catalogue" categories (no `type` set, e.g. Matka Bag, Coin
+//    Purse): category page shows a GRID of every product (one
+//    photo each). Tapping a product opens a carousel with that
+//    photo + any commonPhotos.
+//
+// B) "Subcategory" categories (`type: "subcategory"`, e.g.
+//    Messenger Bag, Laptop Bag, Duffle Bag, Backpack): the
+//    category itself is just a front picture. Tapping it opens a
+//    LISTING page — one tile per bag, named, showing that bag's
+//    own front photo. Tapping a listing goes STRAIGHT into a
+//    carousel of every photo of that one bag (front + all angles/
+//    dimension shots) — no grid, no common photos mixed in,
+//    because every photo in that listing's folder is the same bag.
+//
+// For subcategory folders where no file was explicitly named
+// "front image", I picked the earliest/first photo in the folder
+// as the listing's thumbnail — rename a file to include "front"
+// in Drive if you want a different one used, and let me know to
+// re-sync.
+//
+// Still-empty folders in Drive (no photos yet, so left out):
+//   MESSENGER BAG (SQUARE) — subfolders exist but all empty
+//   MEN'S WALLET, CROSS BODY BAGS (5.) — no files at all
 // Add photos to them the same way and send the word; I'll pull
 // them in too.
 // ============================================================
@@ -193,6 +221,295 @@ const CATALOGUE = [
       { name: "Cross Body Bag 7", image: driveImg("1p3Yaq8Ml9GuDrl0YRcq5rk9VUpYR8kvm") },
       { name: "Cross Body Bag 8", image: driveImg("1FynZqCZe0g6g22HFKRNFReBLhvTByTLC") },
       { name: "Cross Body Bag 9", image: driveImg("1487a-u3ZQ3rWWZ9Cve6l4QjYcA3cON3q") }
+    ]
+  },
+  {
+    // Grid-style category (Type A). Folder had no subfolders, just
+    // loose photos, so every photo is its own product per your call.
+    name: "Coin Purse",
+    thumbnail: driveImg("1uV2MmFsOBvl4qfsbuCdiCT_hE37E2741"),
+    banner: driveImg("1uV2MmFsOBvl4qfsbuCdiCT_hE37E2741"),
+    commonPhotos: [],
+    products: [
+      { name: "Coin Purse 1", image: driveImg("1EMSfXmFc5WF_VU1yjFqTcYF-RN2hYLst") },
+      { name: "Coin Purse 2", image: driveImg("1Iso_sdRuoY5-XG_Mugbum4cHXKUGwzfG") },
+      { name: "Coin Purse 3", image: driveImg("1eF2Kj9pA9wnk-0QiDmvyOcsCC5Ac9Gut") },
+      { name: "Coin Purse 4", image: driveImg("1k3UA6LxU1nonjV08zNhLGqWxZYltJ_1v") },
+      { name: "Coin Purse 5", image: driveImg("1yyDy0d41agkoelE5ifKwjv5lhHQI1Pui") },
+      { name: "Coin Purse 6", image: driveImg("1KNS_e0Vwp18qxN8h0kHQ-uaEeBhSdL0I") },
+      { name: "Coin Purse 7", image: driveImg("1_Btw-kA30JFXkOutbCDYuOxrNNcvOwNu") },
+      { name: "Coin Purse 8", image: driveImg("1qdmYYb-SsWcmMDjODmNA-_ibxrdFBpzL") }
+    ]
+  },
+  {
+    // Subcategory-style category (Type B). Category front pic is
+    // Drive's "0.front image of ctagoery" file. Each Sling Bag
+    // subfolder becomes one listing that opens straight into a
+    // carousel of that bag's own photos.
+    name: "Messenger Bag",
+    type: "subcategory",
+    thumbnail: driveImg("1wO2a7ccsow7wI7rw6lQjhdioEDyDv-fs"),
+    banner: driveImg("1wO2a7ccsow7wI7rw6lQjhdioEDyDv-fs"),
+    subcategories: [
+      {
+        name: "Sling Bag 1",
+        image: driveImg("1oexwQuRJIUoO_ND48Kf9q3o17tgcppjQ"),
+        photos: [
+          driveImg("1oexwQuRJIUoO_ND48Kf9q3o17tgcppjQ"),
+          driveImg("1MA3eX95tNBI4gkFLjcWMCmOk7hrLrS1u"),
+          driveImg("1NJBzEhNMEZVqUm5OuTxcrDC_mSe0F1V7"),
+          driveImg("1hqkF71r2gxBQ3VVw_aNeb5YRctQF7lg0"),
+          driveImg("1QJMskW2fZFhwzqQfTh9MOsiQ3786XKu8")
+        ]
+      },
+      {
+        name: "Sling Bag 2",
+        image: driveImg("1POvnv0GTNrcw-Wo1H2ET_Fkza7BLtqtS"),
+        photos: [
+          driveImg("1POvnv0GTNrcw-Wo1H2ET_Fkza7BLtqtS"),
+          driveImg("1GK7h9zhueqHiI6u_T-eWQrBxcsOwOlou"),
+          driveImg("1UqV9d8G4LP5YK0BPRmgaiYyZUu4ebneP"),
+          driveImg("1OJnciitTomXAWeFCKOZxMThGJ-oWhxjf")
+        ]
+      },
+      {
+        name: "Sling Bag 3",
+        image: driveImg("1t1jjlR5Trwssp4lY4NOKnd49rETQtgSL"),
+        photos: [
+          driveImg("1t1jjlR5Trwssp4lY4NOKnd49rETQtgSL"),
+          driveImg("18jFIjkhwvPSSrDvy0e-pKz52iJLJOrIr"),
+          driveImg("1Rxt_-tCR7JTkTEZWW8GzdGVLMO9q01I9")
+        ]
+      },
+      {
+        name: "Sling Bag 4",
+        image: driveImg("1EyKnjQL-VVKX1GYp48zzyQ9krq-amX4V"),
+        photos: [
+          driveImg("1EyKnjQL-VVKX1GYp48zzyQ9krq-amX4V"),
+          driveImg("1cZJvqBDgB833PuCpx5kz7ycwJjGw3KHG"),
+          driveImg("1sjKZ3eD2WSnmQBvE8SM6hGWtJum1ZQE3"),
+          driveImg("1m-9org3Rd34eqYLW8djhVhw7ocJFWANp"),
+          driveImg("1qb7arg0o-fBk4Tws8_ACTK40Yfw7x9u6")
+        ]
+      }
+    ]
+  },
+  {
+    // Subcategory-style category (Type B). No dedicated category
+    // front pic existed in Drive, so Laptop Bag 1's front image
+    // is used as the category tile too — add a "0.front image"
+    // file at the LAPTOP BAG folder level if you want a different one.
+    name: "Laptop Bag",
+    type: "subcategory",
+    thumbnail: driveImg("1pM7nUBGBFMfsqn_bxDgW8QIM3X6b5B-m"),
+    banner: driveImg("1pM7nUBGBFMfsqn_bxDgW8QIM3X6b5B-m"),
+    subcategories: [
+      {
+        name: "Laptop Bag 1",
+        image: driveImg("1pM7nUBGBFMfsqn_bxDgW8QIM3X6b5B-m"),
+        photos: [
+          driveImg("1pM7nUBGBFMfsqn_bxDgW8QIM3X6b5B-m"),
+          driveImg("1M4bXxh68ZlHIm6IAZqtYNNoD8fhvcklm"),
+          driveImg("1JahSf13CwFp_Yas3erXk1HuAwTNs-g9-"),
+          driveImg("1Yatb7q6DwBmkpc0CLr0nYLAkK2K2qDcK"),
+          driveImg("1iIC1MSCX63JSkxVNyAGtZAVtI3phfyRI")
+        ]
+      },
+      {
+        name: "Laptop Bag 2",
+        image: driveImg("1PFU-Jsnl3ZQySitjgNbFZrhkSv4ce4he"),
+        photos: [
+          driveImg("1PFU-Jsnl3ZQySitjgNbFZrhkSv4ce4he"),
+          driveImg("1UmfyKDk8KD6i-623phPw7Ij4EH48RZ0q"),
+          driveImg("179kjY-z4T12RSJw7vBalPS9F10ViujgJ"),
+          driveImg("1D-SGKHvxvKattHBsMqW6tFc_YaUQy1mk"),
+          driveImg("13F1opX8A9yDSewaFDTanjCd-Xq4w7vxb")
+        ]
+      },
+      {
+        name: "Laptop Bag 3",
+        image: driveImg("1Zu5Ylj4HcKXBwAe3iAHHtyH0NldU5C7B"),
+        photos: [
+          driveImg("1Zu5Ylj4HcKXBwAe3iAHHtyH0NldU5C7B"),
+          driveImg("1wDztW0JVyImnkAXPuSwi47jzgFa5IM9r"),
+          driveImg("10dPalwmNKKy18DSqlrmg6jeA-dQmnqTj"),
+          driveImg("1AAdBkXGTnPLEOMP1wjm1cVFiKnlWJiRN"),
+          driveImg("1gObpex0e3gklRrQ2x2w2n6KouEGYuTsj")
+        ]
+      },
+      {
+        name: "Laptop Bag 4",
+        image: driveImg("19e41ghUN-cSRVEa-8tGRwUOlALfXyMKT"),
+        photos: [
+          driveImg("19e41ghUN-cSRVEa-8tGRwUOlALfXyMKT"),
+          driveImg("1IgSAYxPG_Lb2TxX4ALzzZ9YDnW5Qs1g3"),
+          driveImg("1z0C3Ni5Kitcp1bJCd9gXSg7v8e8bMpGz"),
+          driveImg("1vHxmS2nW8_b_0zayOg-semBi6-CSkxUN"),
+          driveImg("1u9u3__wLD7BkLQwsvvzkoALgBmNWBS0Y"),
+          driveImg("1aQEwkAq6DOVGIv9UvHoJ8ooi4x50JIT6"),
+          driveImg("1LHXxqyoCbfMeVdb7QwoqS98q0rwBMzrF")
+        ]
+      },
+      {
+        name: "Laptop Bag 5",
+        image: driveImg("1MaFtRQuTlyZfJS3FSjZjJI5O5hFAQhJk"),
+        photos: [
+          driveImg("1MaFtRQuTlyZfJS3FSjZjJI5O5hFAQhJk"),
+          driveImg("1WGgtVzhCRCjK_UyivF0xgZ8GFL01tbJv"),
+          driveImg("11TsytSfht19iis37FH9y0M3YwdfGzrUb"),
+          driveImg("1KcwTga1JQZpVADB6oGzhf4sLD_SjxisU")
+        ]
+      }
+    ]
+  },
+  {
+    // Subcategory-style category (Type B). No dedicated category
+    // front pic in Drive, so Duffle Bag 1's front image is used as
+    // the category tile too.
+    name: "Duffle Bag",
+    type: "subcategory",
+    thumbnail: driveImg("1QXFz5aj41zrJWoPxOyZ6NmPzfnmvAgkZ"),
+    banner: driveImg("1QXFz5aj41zrJWoPxOyZ6NmPzfnmvAgkZ"),
+    subcategories: [
+      {
+        name: "Duffle Bag 1",
+        image: driveImg("1QXFz5aj41zrJWoPxOyZ6NmPzfnmvAgkZ"),
+        photos: [
+          driveImg("1QXFz5aj41zrJWoPxOyZ6NmPzfnmvAgkZ"),
+          driveImg("1fby2XCbkb2tIl_H2L8_NcUUaQIlqFJa7"),
+          driveImg("1aOGWsk0aXnefjKut2oitOoxLfiQnB6tQ"),
+          driveImg("1YqnECctJxH6sU9DIaDJazglXuXsQH6az"),
+          driveImg("1WLX_nNoJ2ZSm5lkEeTNrQLXs8xLNvXHP"),
+          driveImg("1QvNx_Ra_4g6hPjJfPpcnlns5wR7cNGpB")
+        ]
+      },
+      {
+        name: "Duffle Bag 2",
+        image: driveImg("1iXuVsUg2m3tw1yb9o7XJEOey_UCXpuEm"),
+        photos: [
+          driveImg("1iXuVsUg2m3tw1yb9o7XJEOey_UCXpuEm"),
+          driveImg("1V1R3zwI8kRtvXWKqLSpvXVIZ41MzvNL8"),
+          driveImg("1dmzEmuDVHWfvdLnyxkRo8GbjBnyxziqq"),
+          driveImg("1bDXSspA1zU8gVi5hPPJUafBJvdgA63xd"),
+          driveImg("1J5H82-p9dJpTndHfM1Yzk_AtVrIJtoxK")
+        ]
+      },
+      {
+        name: "Duffle Bag 3",
+        image: driveImg("1chdfpXPqvVuNls_YkcWnv1if9733e7ZT"),
+        photos: [
+          driveImg("1chdfpXPqvVuNls_YkcWnv1if9733e7ZT"),
+          driveImg("1HAZ2LjT2HqnKU_TetSNpAbOsZztefOBd"),
+          driveImg("1Fv_lDnuCtCPD7azzXqegYxjuyt4ot3Px"),
+          driveImg("1Zv9VA5ReP4cGkh6YPpmQxWWOA9DcTOLr")
+        ]
+      },
+      {
+        name: "Duffle Bag 4",
+        image: driveImg("1y1YuAn1ulT9skryJdUtpxejnEk8Cxiy1"),
+        photos: [
+          driveImg("1y1YuAn1ulT9skryJdUtpxejnEk8Cxiy1"),
+          driveImg("12YmzNbbIk7pnYb4QVRSnnkKP5VQmcyt9"),
+          driveImg("1cThp8VAV6CMu3KksgxSR5snunDqFOWUE"),
+          driveImg("16YnO66MffqRI0XD1gkQTwwa6cL-nQP8p")
+        ]
+      },
+      {
+        name: "Duffle Bag 5",
+        image: driveImg("1iu1NBrMsVRb1hpV90GzptZlxZAW8MpHf"),
+        photos: [
+          driveImg("1iu1NBrMsVRb1hpV90GzptZlxZAW8MpHf"),
+          driveImg("1SYWiDBfLBVlkSmwZWAB2UVEm7GWNucvI"),
+          driveImg("1qxxQQkdtRHULoa4TVMXz5FhX-0smcfcG"),
+          driveImg("1tuuKU-VXCo1fjxMozeo6ocwCIjzZhHmh"),
+          driveImg("1euNvv1i3CDzuuOmztBVjFL_ObbWwDFTc")
+        ]
+      }
+    ]
+  },
+  {
+    // Subcategory-style category (Type B). No dedicated category
+    // front pic in Drive, so the first Backpack listing's front
+    // image is used as the category tile too. Folder names were
+    // inconsistent (BACKAPCK / BACKPACK(SIZE) / ROLLING BAG) —
+    // cleaned up for display, unrelated to the file IDs below.
+    name: "Backpack",
+    type: "subcategory",
+    thumbnail: driveImg("1UZB8U8_Vjbf8h7grxL_jacCXUWZlxsBv"),
+    banner: driveImg("1UZB8U8_Vjbf8h7grxL_jacCXUWZlxsBv"),
+    subcategories: [
+      {
+        name: "Backpack 1",
+        image: driveImg("1UZB8U8_Vjbf8h7grxL_jacCXUWZlxsBv"),
+        photos: [
+          driveImg("1UZB8U8_Vjbf8h7grxL_jacCXUWZlxsBv"),
+          driveImg("1WsJasXJxS9knjJ5gJ-VT0JJryZUI8Mul"),
+          driveImg("1reFTNW3FxCIIVRM40TYttFjSDalF4mYu"),
+          driveImg("15zw0CtdmR60FgOvTcQsgMDolv6ExwTmJ")
+        ]
+      },
+      {
+        name: "Backpack 2",
+        image: driveImg("17ukibpAdiJ0lZY-Idjl_oc0MkWOfwQZq"),
+        photos: [
+          driveImg("17ukibpAdiJ0lZY-Idjl_oc0MkWOfwQZq"),
+          driveImg("1qk_2jhlyq7Pqi5nHte0iWLI0LMRp58-x"),
+          driveImg("1_1sRqNHp5iuyDjqmitoMwwIrExk-OgZh"),
+          driveImg("1sx5yGZ41y6jyuukTfyPmEyzj0UPS1VD3")
+        ]
+      },
+      {
+        name: "Backpack (Small)",
+        image: driveImg("1cJ6l7p0vYA39gfltu_FjpOZybjGAYfTr"),
+        photos: [
+          driveImg("1cJ6l7p0vYA39gfltu_FjpOZybjGAYfTr"),
+          driveImg("1lxqstkBLo8cCC9j8hq3ElLp1Jdv0ak1D"),
+          driveImg("1SL6lr6QSQGlUe6dIr_6ycvdDnJ89QsvD"),
+          driveImg("1TQYAV31EXEqvigE-vVYNphPBNhBAln6l"),
+          driveImg("1ft-rME-qgc2cvJ-BG5sTrhzgdQccM2A4")
+        ]
+      },
+      {
+        name: "Backpack (Medium)",
+        image: driveImg("17Nk2h4zGxLOl6M-kdK8vjlhfvuopZAbC"),
+        photos: [
+          driveImg("17Nk2h4zGxLOl6M-kdK8vjlhfvuopZAbC"),
+          driveImg("1cKJCnaeoOif1OQrqbjoTyZgb_e7-JwdA"),
+          driveImg("1ZwqI-C-JY8qnlJ6UPeunkdKSMPbwECeE"),
+          driveImg("1vV2-3_YoPceagoN4GCWiv0rrQ4AeIp6j")
+        ]
+      },
+      {
+        name: "Backpack (Large)",
+        image: driveImg("1UBuExgXlBrRCFdaQEeFC672_obI_Nref"),
+        photos: [
+          driveImg("1UBuExgXlBrRCFdaQEeFC672_obI_Nref"),
+          driveImg("13X8_ZpOyCmg9n8y862g_42gqywTFR8ZL"),
+          driveImg("1-4FoxKlzKf1yhBRK0YcBIz7TzJSkLbIf")
+        ]
+      },
+      {
+        name: "Rolling Bag (Large)",
+        image: driveImg("1yatvte7adwHQTLLwr2NgKUAsIMUT_cTe"),
+        photos: [
+          driveImg("1yatvte7adwHQTLLwr2NgKUAsIMUT_cTe"),
+          driveImg("1tv0oxKsJ5Fis4fuJK_nXpwisjnjU2zYl"),
+          driveImg("1NmzYVmSyPJZSY7bdhjjby75Vw2GinUuh"),
+          driveImg("1FLBQjU54OIhNb4ylobGxqgr913muU_vK"),
+          driveImg("1llGZ3Gda80vv3d2xQqDA_uIPY9c5YfLA")
+        ]
+      },
+      {
+        name: "Rolling Bag (Small)",
+        image: driveImg("1RDJxOBl7YUsGmq-4e9puaJ3DUeeEUX6L"),
+        photos: [
+          driveImg("1RDJxOBl7YUsGmq-4e9puaJ3DUeeEUX6L"),
+          driveImg("1ds90xLhNT5IKtzaN0MvrNg_M1MvZ2T3-"),
+          driveImg("1k4mtggUmiTaKZFVPyUGkwUfbJGZqg65U"),
+          driveImg("1_yI8HKQma8zJEhCbSAHSFMRNrL_Me2zA"),
+          driveImg("1s4eg3uHEobemWwngFF8Tff7SHmpKuAvs")
+        ]
+      }
     ]
   }
   // 👉 Add more categories here once you upload photos into their
